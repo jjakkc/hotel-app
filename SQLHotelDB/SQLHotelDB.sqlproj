@@ -66,8 +66,12 @@
     <Build Include="dbo\Tables\Rooms.sql" />
     <Build Include="dbo\Tables\Guests.sql" />
     <Build Include="dbo\Tables\Bookings.sql" />
+    <Build Include="dbo\spRoomTypes_GetAvailableTypes.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Script.PostDeployment.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Publish Profiles\SQLHotelDB.publish.xml" />
   </ItemGroup>
 </Project>
