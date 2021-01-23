@@ -12,7 +12,7 @@ BEGIN
 	WHERE r.RoomTypeId = @roomTypeId 
 	and
 	r.Id not in (
-		SELECT [Id], [RoomId], [GuestId], [StartDate], [EndDate], [CheckedIn], [TotalCost]
+		SELECT [Id]
 		FROM dbo.Bookings b
 		WHERE (b.StartDate > @startDate and b.EndDate < @endDate) -- S--|----|--E start and end encompass range
 		or (b.StartDate <= @startDate and b.EndDate > @startDate)  -- |--S--|--E start intersects range
