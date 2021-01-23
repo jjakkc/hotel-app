@@ -4,10 +4,10 @@ using System.Text;
 
 namespace HotelAppLibrary.Models
 {
-    public class Room
+    public class Guest
     {
         public int Id { get; set; }
-        public string RoomNumber { get; set; }
-        public int RoomTypeId { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
     }
 }
