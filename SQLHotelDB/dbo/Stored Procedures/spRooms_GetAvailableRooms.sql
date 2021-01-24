@@ -8,7 +8,7 @@ BEGIN
 
 	SELECT [r].[Id], [r].[RoomNumber], [r].[RoomTypeId]
 	FROM dbo.Rooms r
-	inner join dbo.RoomTypes rt on rt.id = r.RoomTypeId
+	inner join dbo.RoomTypes rt on rt.Id = r.RoomTypeId
 	WHERE r.RoomTypeId = @roomTypeId 
 	and
 	r.Id not in (

@@ -16,25 +16,6 @@ namespace HotelAppLibrary.Data
         {
             _db = db;
         }
-        //public List<Room> GetAvailableRooms()
-        //{
-        //    string sql = "SELECT Id, RoomNumber, RoomTypeId " +
-        //        "FROM dbo.Rooms r" +
-        //        "INNER JOIN dbo.Bookings b ON b.RoomId = r.Id" +
-        //        "WHERE b.StartDate < GetDate() OR b.EndDate >= GetDate()";
-        //    List<Room> output = _db.LoadData<Room, dynamic>(sql, new { }, "Default");
-
-        //    foreach(var room in output)
-        //    {
-        //        // get room type info
-        //        sql = "SELECT rt.* FROM dbo.RoomTypes rt" +
-        //            "INNER JOIN dbo.Rooms r ON r.RoomTypeId = rt.Id" +
-        //            "WHERE r.Id = @Id";
-        //        //room.RoomInfo = _db.LoadData<RoomType, dynamic>(sql, new { Id = room.RoomTypeId }, "Default").FirstOrDefault();
-        //    }
-
-        //    return output;
-        //}
 
         public List<RoomType> GetAvailableRoomTypes(DateTime startDate, DateTime endDate)
         {
@@ -77,6 +58,14 @@ namespace HotelAppLibrary.Data
                          },
                          connectionStringName,
                          true);
+        }
+
+        public List<BookingFull> SearchBookings(string lastName)
+        {
+            return _db.LoadData<BookingFull, dynamic>("dbo.spBookings_Search",
+                                                  new { lastName, startDate = DateTime.Now.Date },
+                                                  connectionStringName,
+                                                  true);
         }
     }
 }
