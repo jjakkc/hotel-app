@@ -67,5 +67,19 @@ namespace HotelAppLibrary.Data
                                                   connectionStringName,
                                                   true);
         }
+
+        public void CheckInGuest(string lastName, int roomId)
+        {
+            int guestId = _db.LoadData<Guest, dynamic>("select * from dbo.Guests where LastName = @lastName;", new { lastName }, connectionStringName).First().Id;
+
+            string sql = "UPDATE dbo.Bookings set CheckedIn = 1 WHERE GuestId = @guestId and RoomId = @roomId";
+
+            _db.SaveData(sql, new { guestId, roomId }, connectionStringName);
+        }
+
+        public void CheckInGuest(int bookingId)
+        {
+            _db.SaveData("dbo.spBookings_CheckIn", new { Id = bookingId }, connectionStringName, true);
+        }
     }
 }
