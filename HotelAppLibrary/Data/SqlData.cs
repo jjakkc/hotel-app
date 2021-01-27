@@ -7,12 +7,12 @@ using System.Linq;
 
 namespace HotelAppLibrary.Data
 {
-    public class SqlCrud
+    public class SqlData : IDatabaseData
     {
         private readonly ISQLDataAccess _db;
         private const string connectionStringName = "SqlDb";
 
-        public SqlCrud(ISQLDataAccess db)
+        public SqlData(ISQLDataAccess db)
         {
             _db = db;
         }
@@ -40,7 +40,7 @@ namespace HotelAppLibrary.Data
 
             // get available rooms
             List<Room> availableRooms = _db.LoadData<Room, dynamic>("dbo.spRooms_GetAvailableRooms",
-                                                                    new { startDate, endDate, roomTypeId},
+                                                                    new { startDate, endDate, roomTypeId },
                                                                     connectionStringName,
                                                                     true);
 
@@ -48,7 +48,7 @@ namespace HotelAppLibrary.Data
 
             // Book room
             _db.SaveData("dbo.spBookings_Insert",
-                         new 
+                         new
                          {
                              roomId = availableRooms.First().Id,
                              guestId = guest.Id,
@@ -68,6 +68,11 @@ namespace HotelAppLibrary.Data
                                                   true);
         }
 
+        public void CheckInGuest(int bookingId)
+        {
+            _db.SaveData("dbo.spBookings_CheckIn", new { Id = bookingId }, connectionStringName, true);
+        }
+
         public void CheckInGuest(string lastName, int roomId)
         {
             int guestId = _db.LoadData<Guest, dynamic>("select * from dbo.Guests where LastName = @lastName;", new { lastName }, connectionStringName).First().Id;
@@ -77,9 +82,5 @@ namespace HotelAppLibrary.Data
             _db.SaveData(sql, new { guestId, roomId }, connectionStringName);
         }
 
-        public void CheckInGuest(int bookingId)
-        {
-            _db.SaveData("dbo.spBookings_CheckIn", new { Id = bookingId }, connectionStringName, true);
-        }
     }
 }
