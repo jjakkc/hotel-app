@@ -25,7 +25,7 @@ namespace HotelApp.Web.Pages
         [BindProperty(SupportsGet = true)]
         public bool SearchEnabled { get; set; } = false;
         
-        [BindProperty]
+        //[BindProperty]
         public List<RoomType> AvailableRoomTypes { get; set; }
 
         public RoomSearchModel(IDatabaseData db)
@@ -43,7 +43,12 @@ namespace HotelApp.Web.Pages
 
         public IActionResult OnPost()
         {
-            return RedirectToPage(new { SearchEnabled = true, StartDate, EndDate});
+            return RedirectToPage(new 
+            { 
+                SearchEnabled = true, 
+                StartDate = StartDate.ToString("yyyy-MM-dd"), // fixes formatting issues over line
+                EndDate = EndDate.ToString("yyyy-MM-dd") 
+            });
         }
     }
 }
