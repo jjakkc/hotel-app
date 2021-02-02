@@ -25,6 +25,11 @@ namespace HotelAppLibrary.Data
                                             true);
         }
 
+        public RoomType GetRoomTypeById(int id)
+        {
+            return _db.LoadData<RoomType, dynamic>("dbo.spRoomTypes_GetRoomById", new { Id = id }, connectionStringName, true).FirstOrDefault();
+        }
+
         public void BookGuest(string firstName, string lastName, int roomTypeId, DateTime startDate, DateTime endDate)
         {
             // Insert if new -> get guest
@@ -34,7 +39,7 @@ namespace HotelAppLibrary.Data
                                                        true).First();
 
             // Get room type for later calculating total cost
-            RoomType roomType = _db.LoadData<RoomType, dynamic>("select * from dbo.RoomType where Id = @Id",
+            RoomType roomType = _db.LoadData<RoomType, dynamic>("select * from dbo.RoomTypes where Id = @Id",
                                                                 new { Id = roomTypeId },
                                                                 connectionStringName).First();
 
