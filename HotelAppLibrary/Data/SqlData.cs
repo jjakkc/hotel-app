@@ -59,6 +59,7 @@ namespace HotelAppLibrary.Data
                              guestId = guest.Id,
                              startDate = startDate,
                              endDate = endDate,
+                             checkedIn = false,
                              totalCost = timeStaying.Days * roomType.Price
                          },
                          connectionStringName,

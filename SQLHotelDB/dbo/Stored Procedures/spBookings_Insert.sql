@@ -3,9 +3,10 @@
 	@guestId int,
 	@startDate date,
 	@endDate date,
+	@checkedIn bit,
 	@totalCost money
 AS
 BEGIN
-	INSERT into dbo.Bookings (RoomId, GuestId, StartDate, EndDate, TotalCost)
-	VALUES (@roomId, @guestId, @startDate, @endDate, @totalCost);
+	INSERT into dbo.Bookings (RoomId, GuestId, StartDate, EndDate, CheckedIn, TotalCost)
+	VALUES (@roomId, @guestId, @startDate, @endDate, @checkedIn, @totalCost);
 END
