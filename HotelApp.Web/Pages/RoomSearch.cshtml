@@ -4,6 +4,8 @@
     ViewData["Title"] = "Room Search";
 }
 
+<h1>Search for a Room</h1>
+
 <form method="post">
     <div class="form-group">
         <label asp-for="@Model.StartDate"></label>
@@ -38,7 +40,11 @@
                         @room.Description
                     </td>
                     <td>@string.Format("{0:C}", @room.Price)</td>
-                    <td><a href="" class="btn btn-secondary">Book Now</a></td>
+                    <td><a class="btn btn-secondary" asp-page="/RoomBook" 
+                           asp-route-roomtypeid="@room.Id"
+                           asp-route-startdate="@Model.StartDate.ToShortDateString()"
+                           asp-route-enddate="@Model.EndDate.ToShortDateString()"
+                    >Book Now</a></td>
                 </tr>
             }
         </tbody>
