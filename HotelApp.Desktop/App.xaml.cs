@@ -44,32 +44,5 @@ namespace HotelApp.Desktop
 
             mainWindow.Show();
         }
-        //public IConfiguration Configuration { get; private set; }
-
-        //protected override void OnStartup(StartupEventArgs e)
-        //{
-        //    var builder = new ConfigurationBuilder()
-        //     .SetBasePath(Directory.GetCurrentDirectory())
-        //     .AddJsonFile("appsettings.json");
-
-        //    Configuration = builder.Build();
-
-        //    //var serviceCollection = new ServiceCollection();
-        //    //ConfigureServices(serviceCollection);
-
-        //    //ServiceProvider = serviceCollection.BuildServiceProvider();
-
-        //    //var mainWindow = ServiceProvider.GetRequiredService<MainWindow>();
-        //    //mainWindow.Show();
-        //}
-
-        //public void ConfigureServices(IServiceCollection services)
-        //{
-        //    // dependency injection wherever parameter asks for this type
-        //    // addtransient will map an interface to a type and create a new instance of 
-        //    // that type each time its requested
-        //    services.AddTransient<IDatabaseData, SqlData>();
-        //    services.AddTransient<ISQLDataAccess, SQLDataAccess>();
-        //}
     }
 }
