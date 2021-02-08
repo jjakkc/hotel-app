@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace HotelApp.Desktop
 {
@@ -24,8 +25,6 @@ namespace HotelApp.Desktop
     public partial class MainWindow : Window
     {
         private readonly IDatabaseData _db;
-
-        public string LastName { get; set; }
 
         public MainWindow(IDatabaseData db)
         {
@@ -40,12 +39,22 @@ namespace HotelApp.Desktop
                 MessageBox.Show("Enter a valid last name", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
-            LastName = lastNameText.Text;
-            var bookings = _db.SearchBookings(LastName);
+            var bookings = _db.SearchBookings(lastNameText.Text);
             // associates bookings to our list box on the form so we can use Binding to access properties
             bookingList.ItemsSource = bookings;
 
             lastNameText.Text = "";
+        }
+
+        private void CheckInButton_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedBooking = (BookingFull)((Button)e.Source).DataContext;
+
+            var checkInForm = App.serviceProvider.GetService<CheckInWindow>();
+
+            checkInForm.PopulateCheckInInfo(selectedBooking);
+
+            checkInForm.ShowDialog();
         }
     }
 }
