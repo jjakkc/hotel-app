@@ -18,6 +18,8 @@ namespace HotelApp.Desktop
     /// </summary>
     public partial class App : Application
     {
+        public static ServiceProvider serviceProvider;
+
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
@@ -25,6 +27,7 @@ namespace HotelApp.Desktop
             // setting up dependency injection for interface types
             var services = new ServiceCollection();
             services.AddTransient<MainWindow>(); // allows more than 1 instance of main window
+            services.AddTransient<CheckInWindow>();
             services.AddTransient<ISQLDataAccess, SQLDataAccess>();
             services.AddTransient<IDatabaseData, SqlData>();
 
@@ -39,7 +42,7 @@ namespace HotelApp.Desktop
             services.AddSingleton(config); // allows only 1 instance of this
 
             // building a container for all services we added
-            var serviceProvider = services.BuildServiceProvider();
+            serviceProvider = services.BuildServiceProvider();
             var mainWindow = serviceProvider.GetService<MainWindow>();
 
             mainWindow.Show();
