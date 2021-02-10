@@ -36,8 +36,8 @@
 			<TextBox x:Name="refText" MinWidth="200" MaxWidth="300"/>
 		</StackPanel>
 
-		<Button x:Name="searchBtn" Grid.Row="3" Grid.Column="1"
-		Click="SearchBooking_Click" MaxWidth="200">Search</Button>
+		<Button x:Name="searchBtn" Grid.Row="3" Grid.Column="1" Padding="20 5"
+		Click="SearchBooking_Click" Width ="200" MaxWidth="200" HorizontalAlignment="Right">Search</Button>
 
 		<ListBox x:Name="bookingList" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Center" Width="660"
 				 Margin="0,20,0,0" ItemsSource="{Binding}" ScrollViewer.VerticalScrollBarVisibility="Auto" Height="180">
@@ -65,7 +65,7 @@
 						</StackPanel>
 						<Button x:Name="checkInBtn" Margin="5" Padding="10" Grid.Row="0" 
 								Grid.Column="1" Grid.RowSpan="4" VerticalAlignment="Center"
-                                Click="CheckInButton_Click" Tag="{Binding Id}">Check In</Button>
+								Click="CheckInButton_Click" Tag="{Binding Id}">Check In</Button>
 						<StackPanel Orientation="Horizontal" Grid.Row="1">
 							<TextBlock Margin="5" FontWeight="Bold">Room:</TextBlock>
 							<TextBlock Margin="5" Text="{Binding Title}" />
