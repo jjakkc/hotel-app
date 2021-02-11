@@ -26,11 +26,21 @@ namespace HotelApp.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
+            
+            string dbChoice = Configuration.GetValue<string>("DatabaseChoice").ToLower();
+
+            if (dbChoice == "sql")
+                services.AddTransient<IDatabaseData, SqlData>();
+            else if (dbChoice == "sqlite")
+                services.AddTransient<IDatabaseData, SqliteData>();
+            else
+                services.AddTransient<IDatabaseData, SqliteData>();
+
             // dependency injection wherever parameter asks for this type
             // addtransient will map an interface to a type and create a new instance of 
             // that type each time its requested
-            services.AddTransient<IDatabaseData, SqlData> ();
             services.AddTransient<ISQLDataAccess, SQLDataAccess> ();
+            services.AddTransient<ISqliteDataAccess, SqliteDataAccess> ();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

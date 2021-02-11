@@ -29,7 +29,7 @@ namespace HotelApp.Desktop
             services.AddTransient<MainWindow>(); // allows more than 1 instance of main window
             services.AddTransient<CheckInWindow>();
             services.AddTransient<ISQLDataAccess, SQLDataAccess>();
-            services.AddTransient<IDatabaseData, SqlData>();
+            services.AddTransient<ISqliteDataAccess, SqliteDataAccess>();
 
             // setting up way to talk to appsettings file
             var builder = new ConfigurationBuilder()
@@ -40,6 +40,15 @@ namespace HotelApp.Desktop
 
             // dependency injection here: anytime ask for IConfiguration will get instance of config
             services.AddSingleton(config); // allows only 1 instance of this
+
+            string dbChoice = config.GetValue<string>("DatabaseChoice").ToLower();
+
+            if (dbChoice == "sql")
+                services.AddTransient<IDatabaseData, SqlData>();
+            else if (dbChoice == "sqlite")
+                services.AddTransient<IDatabaseData, SqliteData>();
+            else
+                services.AddTransient<IDatabaseData, SqliteData>();
 
             // building a container for all services we added
             serviceProvider = services.BuildServiceProvider();
