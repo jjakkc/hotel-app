@@ -56,8 +56,8 @@ namespace HotelAppLibrary.Data
 
             TimeSpan timeStaying = endDate.Date.Subtract(startDate.Date);
 
-            sqlStatement = "INSERT INTO Bookings (RoomId, GuestId, StartDate, EndDate, CheckIn, TotalCost) " +
-                           "VALUES (@roomId, @guestId, @startDate, @endDate, @checkIn, @totalCost);";
+            sqlStatement = "INSERT INTO Bookings (RoomId, GuestId, StartDate, EndDate, CheckedIn, TotalCost) " +
+                           "VALUES (@roomId, @guestId, @startDate, @endDate, @checkedIn, @totalCost);";
 
             // Book room
             _db.SaveData(sqlStatement,
@@ -67,7 +67,7 @@ namespace HotelAppLibrary.Data
                              guestId = guest.Id,
                              startDate = startDate,
                              endDate = endDate,
-                             checkIn = false,
+                             checkedIn = false,
                              totalCost = timeStaying.Days * roomType.Price
                          },
                          connectionStringName);
@@ -75,7 +75,7 @@ namespace HotelAppLibrary.Data
 
         public void CheckInGuest(int bookingId)
         {
-            string sqlStatement = "UPDATE Bookings SET CheckIn = 1 WHERE Id = @Id";
+            string sqlStatement = "UPDATE Bookings SET CheckedIn = 1 WHERE Id = @Id";
             _db.SaveData(sqlStatement, new { Id = bookingId }, connectionStringName);
         }
 
@@ -115,7 +115,29 @@ namespace HotelAppLibrary.Data
 
         public List<BookingFull> SearchBookings(string lastName)
         {
-            throw new NotImplementedException();
+            string sqlStatement = "SELECT b.Id, b.RoomId, b.GuestId, b.StartDate, b.EndDate, b.CheckedIn, b.TotalCost, " +
+                                         "g.FirstName, g.LastName, " +
+                                         "r.RoomNumber, r.RoomTypeId, " +
+                                         "rt.Title, rt.Description, rt.Price " +
+                                  "FROM Bookings b " +
+                                  "INNER JOIN Guests g ON b.GuestId = g.Id " +
+                                  "INNER JOIN Rooms r ON b.RoomId = r.Id " +
+                                  "INNER JOIN RoomTypes rt ON r.RoomTypeId = rt.Id " +
+                                  "WHERE g.LastName = @lastName and b.StartDate >= @startDate;";
+
+
+
+            var bookings =  _db.LoadData<BookingFull, dynamic>(sqlStatement,
+                                                      new { lastName, startDate = DateTime.Now.Date },
+                                                      connectionStringName);
+
+            // convert int price to currency
+            bookings.ForEach(b => {
+                b.Price = b.Price / 100;
+                b.TotalCost = b.TotalCost / 100;
+            });
+
+            return bookings;
         }
     }
 }
