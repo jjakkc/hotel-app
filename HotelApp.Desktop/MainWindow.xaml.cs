@@ -50,6 +50,12 @@ namespace HotelApp.Desktop
         {
             var selectedBooking = (BookingFull)((Button)e.Source).DataContext;
 
+            if (selectedBooking.CheckedIn)
+            {
+                MessageBox.Show("Guest already checked in", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
             var checkInForm = App.serviceProvider.GetService<CheckInWindow>();
 
             checkInForm.PopulateCheckInInfo(selectedBooking);

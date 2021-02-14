@@ -37,6 +37,8 @@ namespace HotelApp.Desktop
             roomTypeText.Text = _data.Title;
             roomNumText.Text = _data.RoomNumber;
             descriptionText.Text = _data.Description;
+            startDateText.Text = _data.StartDate.ToShortDateString();
+            endDateText.Text = _data.EndDate.ToShortDateString();
             costText.Text = string.Format("{0:C}", _data.TotalCost);
         }
 
