@@ -34,7 +34,7 @@ namespace HotelApp.Web
             else if (dbChoice == "sqlite")
                 services.AddTransient<IDatabaseData, SqliteData>();
             else
-                services.AddTransient<IDatabaseData, SqliteData>();
+                services.AddTransient<IDatabaseData, SqlData>();
 
             // dependency injection wherever parameter asks for this type
             // addtransient will map an interface to a type and create a new instance of 
