@@ -5,9 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HotelApp.Desktop"
         mc:Ignorable="d" FontSize="20" FontFamily="Segoe UI"
-        Title="CheckInWindow" Height="330" Width="400" WindowStartupLocation="CenterOwner">
-    <Grid Margin="20">
+        Title="CheckInWindow" Height="420" Width="400" WindowStartupLocation="CenterOwner">
+    <Grid Margin="20,20,20,20">
         <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
@@ -41,11 +43,18 @@
             <TextBlock x:Name="descriptionText" Margin="5" />
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="4">
+            <TextBlock Margin="5" FontWeight="Bold">Start Date:</TextBlock>
+            <TextBlock x:Name="startDateText" Margin="5" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="5">
+            <TextBlock Margin="5" FontWeight="Bold">End Date:</TextBlock>
+            <TextBlock x:Name="endDateText" Margin="5" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="6">
             <TextBlock Margin="5" FontWeight="Bold">Total Cost:</TextBlock>
             <TextBlock x:Name="costText" Margin="5" />
         </StackPanel>
-        <Button x:Name="checkInBtn" Margin="10 30" Grid.Row="5" Grid.ColumnSpan="3" HorizontalAlignment="Center" 
-                Padding="10"
-                Click="ConfirmCheckInButton_Click">Confirm Check-In</Button>
+        <Button x:Name="checkInBtn" Margin="10 30" Grid.Row="7" Grid.ColumnSpan="3" HorizontalAlignment="Center" 
+                Padding="10" Click="ConfirmCheckInButton_Click">Confirm Check-In</Button>
     </Grid>
 </Window>
